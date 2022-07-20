@@ -1,8 +1,13 @@
 const app = require("./app");
 const config = require("./app/config");
+const mongoose = require("mongoose");
 
-// start servert
-const PORT = config.app.port;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+mongoose
+  .connect(config.db.uri, {
+    useNewUrlParser: true,
+  })
+  .then(() => console.log("DB Connected"));
+
+app.listen(config.app.port, (req, res) => {
+  console.log(`Listening on port ${config.app.port}`);
 });
